@@ -1,0 +1,11 @@
+FillInTheBlank,The Great Red Spot is a gigantic storm located on which planet in our solar system?,JUPITER
+FillInTheBlank,The art and practive of garden cultivation and management is called what?,HORTOCULTURE
+FillInTheBlank,186,282 miles per second is the speed of what in a vacuum?,LIGHT
+FillInTheBlank,Which planet in our solar system has an axis that is titled by 98 degrees?,URANUS
+FillInTheBlank,How many ounces are in a US gallon?,128
+FillInTheBlank,How many letters are in the Greek alphabet?24
+FillInTheBlank,What 2013 science fiction blockbuster starred Sandra Bullock and George Clooney?,GRAVITY
+FillInTheBlank,What former planet was demoted to a dwarf planet in 2006?,PLUTO
+FillInTheBlank,Which country lies on the border between Spain and France?,ANDORRA
+FillInTheBlank,Sri Lanka is surrounded by which ocean?,INDIAN OCEAN
+
