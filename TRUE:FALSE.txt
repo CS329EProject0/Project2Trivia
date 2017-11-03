@@ -1,0 +1,15 @@
+TRUE/False, Adults have fewer bones than babies do, TRUE, FALSE
+TRUE/False, Goldfish have a memory of three seconds, FALSE, TRUE
+TRUE/False, There are more cells of bacteria in your body than there are human cells, TRUE, FALSE
+TRUE/False, It costs the U.S. Mint more to make pennies and nickels than the coins are actually worth, TRUE, FALSE
+TRUE/False, The top of the Eiffel Tower leans away from the sun, TRUE, FALSE
+TRUE/False, Carl Lewis holds the record for most individual gold medals at the Olympics, FALSE (micheal phelps)
+TRUE/False, The Academy Awards are annually the most-watched, single telecast in the United States FALSE (super bowl)
+TRUE/False, TRUE/FalseThe Enlightenment was an intellectual movement that celebrated religious faith over reason, FALSE TRUE
+TRUE/False, Corn is the most produced crop in the world TRUE FALSE
+TRUE/False, Vincent van Gogh sold only one painting during his lifetime, TRUE FALSE
+TRUE/False, Denali, also known as Mount McKinley, is the highest mountain in the United States TRUE FALSE
+TRUE/False, World War II is the war the U.S. had the most casualties FALSE TRUE (civil war)
+TRUE/False, It takes about 8 seconds for the Sun’s rays to reach Earth FALSE TRUE (8 min)
+TRUE/False, The Sahara desert is smaller than Mexico FALSE TRUE
+TRUE/False, Earth is bigger than Mars, TRUE, FALSE
