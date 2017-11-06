@@ -33,7 +33,7 @@ class FillInTheBlank:
 	def __str__(self):
 		return self.question + ". (Free Response)\n"
 
-
+'''
 def main():
 	# makes question bank
 	list_of_questions = []
@@ -87,7 +87,7 @@ def main():
 
 		
 main()
-
+'''
 
 class TestSuite (unittest.TestCase):
 
@@ -102,6 +102,31 @@ class TestSuite (unittest.TestCase):
 		self.assertEqual(self.testMC.question, self.question)
 		self.assertEqual(self.testMC.correctAnswer, self.correctAnswer)
 		self.assertEqual(self.testMC.answers, self.allAnswers)
+
+	list_of_questions = []
+	infile = open("question_bank.txt", "r")
+	for line in infile:
+		line = eval(line)
+		if line[0] == "MultipleChoice":
+			# create MC question
+			allAnswers = line[2:]
+			question = MultipleChoice(line[1], line[2], allAnswers)
+		elif line[0] == "FillInTheBlank":
+			question = FillInTheBlank(line[1], line[2])
+		else: # T/F
+			question = TrueFalse(line[1], line[2])
+
+		list_of_questions.append(question)
+
+	infile.close()
+	# test if create questions are successful
+	def testquestiongeneral1(self):
+		assert self.list_of_questions is not None
+
+	def testquestiongeneral2(self):
+		for i in range(10):
+			temp = random.choice(self.list_of_questions)
+			assert temp is not None
 
 	# test MC output
 	def testMCQuestionStr (self):
