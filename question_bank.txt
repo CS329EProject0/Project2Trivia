@@ -50,7 +50,7 @@
 ["MultipleChoice", "Who wrote musicals with Oscar Hammerstein II?", "Richard Rodgers", "Rogers Hornsby", "Gilbert O' Sullivan", "George Rogers Clark"]
 ["MultipleChoice", "Which of these is not a spice?", "cucumber", "dill", "aniseed", "cayenne"]
 ["FillInTheBlank", "The Great Red Spot is a gigantic storm located on which planet in our solar system?", "JUPITER"]
-["FillInTheBlank", "The art and practive of garden cultivation and management is called what?", "HORTOCULTURE"]
+["FillInTheBlank", "The art and practive of garden cultivation and management is called what?", "HORTICULTURE"]
 ["FillInTheBlank", "186,282 miles per second is the speed of what in a vacuum?", "LIGHT"]
 ["FillInTheBlank", "Which planet in our solar system has an axis that is titled by 98 degrees?", "URANUS"]
 ["FillInTheBlank", "How many ounces are in a US gallon?", "128"]
@@ -74,5 +74,3 @@
 ["TRUE/False", "It takes about 8 seconds for the Sun’s rays to reach Earth", False, True]
 ["TRUE/False", "The Sahara desert is smaller than Mexico", False, True]
 ["TRUE/False", "Earth is bigger than Mars", True, False]
-
-
