@@ -1,4 +1,5 @@
 import random
+import unittest
 
 class MultipleChoice:
 	def __init__(self, question, correctAnswer, allAnswers):
@@ -88,5 +89,36 @@ def main():
 main()
 
 
+class TestSuite (unittest.TestCase):
 
+	# create a test MC question for testing
+	question = "What is 2 + 2?"
+	correctAnswer = "4"
+	allAnswers = ["2", '4', '0', '1']
+	testMC = MultipleChoice(question, correctAnswer, allAnswers)
 
+	# simply test the creation of a question object, we will be testing the MC type question
+	def testQuestionCreation (self):
+		self.assertEqual(self.testMC.question, self.question)
+		self.assertEqual(self.testMC.correctAnswer, self.correctAnswer)
+		self.assertEqual(self.testMC.answers, self.allAnswers)
+
+	# test MC output
+	def testMCQuestionStr (self):
+		returnFlag = True
+		MCStrOutput = str(self.testMC)
+		for answer in self.allAnswers:
+			if answer not in MCStrOutput:
+				returnFlag = False
+		self.assertTrue(returnFlag)
+
+	# create a test fill in the blank question for testing
+	testFillInTheBlank = FillInTheBlank("The Dog goes: ", "Woof")
+
+	# test Fill in the blank output
+	def testFillInTheBlankStr (self):
+		expectedReturn = "The Dog goes: . (Free Response)\n"
+		self.assertEqual(str(self.testFillInTheBlank), expectedReturn)
+
+if __name__ == '__main__':
+	unittest.main()
