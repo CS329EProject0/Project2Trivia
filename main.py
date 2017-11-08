@@ -33,7 +33,7 @@ class FillInTheBlank:
 	def __str__(self):
 		return self.question + ". (Free Response)\n"
 
-'''
+
 def main():
 	# makes question bank
 	list_of_questions = []
@@ -87,7 +87,7 @@ def main():
 
 		
 main()
-'''
+
 
 class TestSuite (unittest.TestCase):
 
