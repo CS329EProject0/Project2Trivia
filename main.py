@@ -33,9 +33,7 @@ class FillInTheBlank:
 	def __str__(self):
 		return self.question + ". (Free Response)\n"
 
-
-def main():
-	# makes question bank
+def makeQuestionBank():
 	list_of_questions = []
 	infile = open("question_bank.txt", "r")
 	for line in infile:
@@ -52,6 +50,18 @@ def main():
 		list_of_questions.append(question)
 
 	infile.close()
+	return list_of_questions
+
+def printLifelines(lifelines):
+	print()
+	print("Available lifelines:")
+	for i in range(len(lifelines)):
+		print("\t" + chr(ord('A') + i) + ". " + lifelines[i])
+	print()
+
+def main():
+	# makes question bank
+	list_of_questions = makeQuestionBank()
 
 	# trivia show
 	user_score = 0
@@ -62,16 +72,40 @@ def main():
 	D = "Dd"
 
 	payout = [100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000]
-	for i in range(10):
+	lifelines = ["50:50", "Double Dip", "Change Question"]
+	for i in range(15):
 		question = random.choice(list_of_questions)
 		print(question)
 		list_of_questions.remove(question)
-		answer = input("What is your answer? ")
+		answer = input("If you would like to use a lifeline, enter \"lifeline\"\nIf you would like to answer, enter answer: ")
+
+		# if the user wants to use a lifeine
+		while answer == "lifeline":
+			printLifelines(lifelines)
+			lifeline_answer = input("Which lifeline would you like to use? 'q' to cancel: ")
+			print()
+			if lifeline_answer in A:
+				# use 50:50 lifeline
+				pass
+			elif lifeline_answer in B:
+				# use Double Dip lifeline
+				pass
+			elif lifeline_answer in C:
+				# use Change Question lifeline
+				pass
+			else:
+				# cancel
+				answer = input("If you would like to use a lifeline, enter \"lifeline\"\nIf you would like to answer, enter answer: ")
+
+
 		if isinstance(question, MultipleChoice):
-			if (answer in A and question.correctAnswer == question.answers[0]) or \
-			   (answer in B and question.correctAnswer == question.answers[1]) or \
-			   (answer in C and question.correctAnswer == question.answers[2]) or \
-			   (answer in D and question.correctAnswer == question.answers[3]):
+			# booleans checking if answer is correct
+			A_Correct = answer in A and question.correctAnswer == question.answers[0]
+			B_Correct = answer in B and question.correctAnswer == question.answers[1]
+			C_Correct = answer in C and question.correctAnswer == question.answers[2]
+			D_Correct = answer in D and question.correctAnswer == question.answers[3]
+
+			if A_Correct or B_Correct or C_Correct or D_Correct:
 				# add score
 				user_score = payout[i]
 			else:
