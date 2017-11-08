@@ -10,6 +10,6 @@ def main():
 		root = tkinter.Tk()
 		textEntry = ""
 		displayGUI = GUI(root, questiontext)
-		displayGUI.master.mainloop()
+		root.mainloop()
 
 main()

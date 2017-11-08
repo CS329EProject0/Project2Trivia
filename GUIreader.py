@@ -22,22 +22,23 @@ class GUI():
 		# creating question label
 		Label(master,fg = textColor,bg = backgroundColor,text=self.questiontext).grid(row=1,column=0)
 
+		self.master.deiconify()
 		if self.qType == "MultipleChoice":
-			b1 = Button(master, bg = buttonColor,text=question[2], width=10, command = self.callback('A'))
+			b1 = Button(master, bg = buttonColor,text=question[2], width=10, command = lambda: self.callback('A'))
 			b1.grid(row=3,column=0, pady = 20)
-			b2 = Button(master, bg = buttonColor,text=question[3], width=10, command = self.callback('B'))
+			b2 = Button(master, bg = buttonColor,text=question[3], width=10, command = lambda: self.callback('B'))
 			b2.grid(row=4,column=0, pady = 20)
-			b3 = Button(master, bg = buttonColor,text=question[4], width=10, command = self.callback('C'))
+			b3 = Button(master, bg = buttonColor,text=question[4], width=10, command = lambda: self.callback('C'))
 			b3.grid(row=5,column=0, pady = 20)
-			b4 = Button(master, bg = buttonColor,text=question[5], width=10, command = self.callback('D'))
+			b4 = Button(master, bg = buttonColor,text=question[5], width=10, command = lambda: self.callback('D'))
 			b4.grid(row=6,column=0, pady = 20)
 
 			self.linePos += 4
 
 		elif self.qType == 'TRUE/False':
-			b1 = Button(master, bg = buttonColor,text="True", width=10, command = self.callback('True'))
+			b1 = Button(master, bg = buttonColor,text="True", width=10, command = lambda: self.callback('True'))
 			b1.grid(row=3,column=0, pady = 20)
-			b2 = Button(master, bg = buttonColor,text="False", width=10, command = self.callback('False'))
+			b2 = Button(master, bg = buttonColor,text="False", width=10, command = lambda: self.callback('False'))
 			b2.grid(row=4,column=0, pady = 20)
 			self.linePos += 2
 
@@ -45,7 +46,7 @@ class GUI():
 			self.resultBox = Entry(master)
 			self.resultBox.grid(row=2,column=0)
 			self.linePos += 1
-			b1 = Button(master, bg = buttonColor,text="Submit", width=10, command = self.callback(self.resultBox.get()))
+			b1 = Button(master, bg = buttonColor,text="Submit", width=10, command = lambda: self.callback(self.resultBox.get()))
 			b1.grid(row=3,column=0, pady = 20)
 			
 
@@ -59,6 +60,5 @@ class GUI():
 			tempOutput.write(answer + '\n')
 			tempOutput.close()
 
-			if answer != '':
-				self.master.withdraw()
+			self.master.destroy()
 
