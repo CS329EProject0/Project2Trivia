@@ -61,6 +61,7 @@ def main():
 	C = "Cc"
 	D = "Dd"
 
+	payout = [100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000]
 	for i in range(10):
 		question = random.choice(list_of_questions)
 		print(question)
@@ -72,13 +73,13 @@ def main():
 			   (answer in C and question.correctAnswer == question.answers[2]) or \
 			   (answer in D and question.correctAnswer == question.answers[3]):
 				# add score
-				user_score += 100000
+				user_score = payout[i]
 			else:
 				print("You done. Game over. Who gonna be a millionaire? not you.")
 				break
 		else:
 			if answer.upper() == str(question.correctAnswer).upper():
-				user_score += 100000
+				user_score = payout[i]
 			else:
 				print("\nDishonor on you, yo family, dishonor on yo cow, get outta my face.")
 				break
