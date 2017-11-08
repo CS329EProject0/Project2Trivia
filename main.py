@@ -109,14 +109,14 @@ class TestSuite (unittest.TestCase):
 		line = eval(line)
 		if line[0] == "MultipleChoice":
 			# create MC question
-			allAnswers = line[2:]
-			question = MultipleChoice(line[1], line[2], allAnswers)
+			tempAllAnswers = line[2:]
+			tempQuestion = MultipleChoice(line[1], line[2], tempAllAnswers)
 		elif line[0] == "FillInTheBlank":
-			question = FillInTheBlank(line[1], line[2])
+			tempQuestion = FillInTheBlank(line[1], line[2])
 		else: # T/F
-			question = TrueFalse(line[1], line[2])
+			tempQuestion = TrueFalse(line[1], line[2])
 
-		list_of_questions.append(question)
+		list_of_questions.append(tempQuestion)
 
 	infile.close()
 	# test if create questions are successful
