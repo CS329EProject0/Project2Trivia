@@ -56,16 +56,21 @@ def main():
 	# trivia show
 	user_score = 0
 
+	A = "Aa"
+	B = "Bb"
+	C = "Cc"
+	D = "Dd"
+
 	for i in range(10):
 		question = random.choice(list_of_questions)
 		print(question)
 		list_of_questions.remove(question)
 		answer = input("What is your answer? ")
 		if isinstance(question, MultipleChoice):
-			if (answer == "A" and question.correctAnswer == question.answers[0]) or \
-			   (answer == "B" and question.correctAnswer == question.answers[1]) or \
-			   (answer == "C" and question.correctAnswer == question.answers[2]) or \
-			   (answer == "D" and question.correctAnswer == question.answers[3]):
+			if (answer in A and question.correctAnswer == question.answers[0]) or \
+			   (answer in B and question.correctAnswer == question.answers[1]) or \
+			   (answer in C and question.correctAnswer == question.answers[2]) or \
+			   (answer in D and question.correctAnswer == question.answers[3]):
 				# add score
 				user_score += 100000
 			else:
