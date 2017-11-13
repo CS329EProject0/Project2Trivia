@@ -35,20 +35,23 @@ class GUI():
 			maxQuestionLength += 4
 
 			# randomize the questions
-			ABCDIndex = [0, 1, 2, 3]
+			ABCDIndex = [i for i in range (len(question.answers))]
 			shuffle(ABCDIndex)
 
-
+			# create the buttons for a MC question
 			b1 = Button(master, bg = buttonColor,text=question.answers[ABCDIndex[0]], width=maxQuestionLength, command = lambda: self.callback(chr(ABCDIndex[0] + 65)))
 			b1.grid(row=3,column = 1, pady = 15)
 			b2 = Button(master, bg = buttonColor,text=question.answers[ABCDIndex[1]], width=maxQuestionLength, command = lambda: self.callback(chr(ABCDIndex[1] + 65)))
 			b2.grid(row=4,column = 1, pady = 15)
-			b3 = Button(master, bg = buttonColor,text=question.answers[ABCDIndex[2]], width=maxQuestionLength, command = lambda: self.callback(chr(ABCDIndex[2] + 65)))
-			b3.grid(row=5,column = 1, pady = 15)
-			b4 = Button(master, bg = buttonColor,text=question.answers[ABCDIndex[3]], width=maxQuestionLength, command = lambda: self.callback(chr(ABCDIndex[3] + 65)))
-			b4.grid(row=6,column = 1, pady = 15)
+			self.linePos += 2
 
-			self.linePos += 4
+			# this is to ensure the MC question is not a 50/50 question with only two answer choices as opposed to the usual four
+			if len(question.answers) > 2:
+				b3 = Button(master, bg = buttonColor,text=question.answers[ABCDIndex[2]], width=maxQuestionLength, command = lambda: self.callback(chr(ABCDIndex[2] + 65)))
+				b3.grid(row=5,column = 1, pady = 15)
+				b4 = Button(master, bg = buttonColor,text=question.answers[ABCDIndex[3]], width=maxQuestionLength, command = lambda: self.callback(chr(ABCDIndex[3] + 65)))
+				b4.grid(row=6,column = 1, pady = 15)
+				self.linePos += 2
 
 		elif self.question.qtype == 'True / False':
 			b1 = Button(master, bg = buttonColor,text="True", width=10, command = lambda: self.callback('True'))
@@ -70,12 +73,25 @@ class GUI():
 
 
 		Label(master, fg = textColor, bg = backgroundColor, text = "You've won $" + self.score + ' so far.').grid (row = self.linePos, column = 1, pady = 5)
-		Label(master, fg = textColor, bg = backgroundColor, text = "You have " + str(lifelinesRemaining) + " lifelines remaining.").grid (row = self.linePos + 1, column = 1, pady = 5)
+
+		# if lifeline amount is less than 0, the user just used a lifeline and cant use one immediately after
+		lifelinesString = ''
+		if lifelinesRemaining < 0:
+			lifelinesString = " You just used a lifeline, you can't use two in a row!"
+			lifelinesRemaining += 3
+
+		Label(master, fg = textColor, bg = backgroundColor, text = "You have " + str(lifelinesRemaining) + " lifelines remaining." + lifelinesString).grid (row = self.linePos + 1, column = 1, pady = 5)
+
+		# this is to ensure lifelines counter is accurate, used later for error message
+		if lifelinesString != '':
+			lifelinesRemaining -= 3
 
 		# create lifeline buttons
-		button5050 = Button(master, bg = buttonColor, text = '50 / 50', width = 14, command = lambda: self.callback('50 / 50')).grid(row = self.linePos + 2, column = 0, padx = 20, pady = 15)
-		buttonDoubleDip = Button(master, bg = buttonColor, text = 'Double Dip', width = 14, command = lambda: self.callback('Double Dip')).grid(row = self.linePos + 2, column = 1, padx = 20, pady = 15)
-		buttonChangeQuestion = Button(master, bg = buttonColor, text = 'New Question', width = 14, command = lambda: self.callback('New Question')).grid(row = self.linePos + 2, column = 2, padx = 20, pady = 15)
+		if question.qtype == 'Multiple Choice':
+			button5050 = Button(master, bg = buttonColor, text = '50 / 50', width = 14, command = lambda: self.lifelineCall('Lifeline 50 / 50')).grid(row = self.linePos + 2, column = 0, padx = 20, pady = 15)
+			buttonDoubleDip = Button(master, bg = buttonColor, text = 'Double Dip', width = 14, command = lambda: self.lifelineCall('Lifeline Double Dip')).grid(row = self.linePos + 2, column = 2, padx = 20, pady = 15)
+		
+		buttonChangeQuestion = Button(master, bg = buttonColor, text = 'New Question', width = 14, command = lambda: self.lifelineCall('Lifeline New Question')).grid(row = self.linePos + 2, column = 1, padx = 20, pady = 15)
 
 
 
@@ -85,4 +101,15 @@ class GUI():
 		tempOutput.close()
 
 		self.master.destroy()
+
+	def lifelineCall(self, lifelineRequest):
+		if self.lifelinesRemaining == 0:
+			messagebox.showerror('Invalid command!', "You've used all your lifelines!")
+		elif self.lifelinesRemaining < 0:
+			messagebox.showerror('Invalid command!', "You can't use two lifelines in a row!")
+		else:
+			tempOutput = open('tempAnswer.txt','w')
+			tempOutput.write(lifelineRequest + '\n')
+			tempOutput.close()
+			self.master.destroy()
 

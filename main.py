@@ -64,6 +64,12 @@ def printLifelines(lifelines):
 		print("\t" + chr(ord('A') + i) + ". " + lifelines[i])
 	print()
 
+def getAnswer():
+	tempAnswer = open("tempAnswer.txt","r")
+	answer = tempAnswer.readline().strip()
+	tempAnswer.close()
+	return answer
+
 def main():
 	# makes question bank
 	list_of_questions = makeQuestionBank()
@@ -73,13 +79,13 @@ def main():
 
 	# trivia show variables
 	payout = ['100', '200', '300', '500', '1,000', '2,000', '4,000', '8,000', '16,000', '32,000', '64,000', '125,000', '250,000', '500,000', '1,000,000']
-	lifelines = ["50:50", "Double Dip", "Change Question"]
 	lifelinesRemaining = 3
+	correctAnswers = 0
 
-	for i in range (15):
+	while correctAnswers < 15:
 		question = random.choice(list_of_questions)
 		master = tkinter.Tk()
-		currentQuestion = GUI(master, question, payout[i], lifelinesRemaining)
+		currentGUI = GUI(master, question, payout[correctAnswers], lifelinesRemaining)
 		master.mainloop()
 
 		list_of_questions.remove(question)
@@ -106,10 +112,46 @@ def main():
 		'''
 
 		# open the temporary Answer file to check if the answer is correct
-		answerCheck = open("tempAnswer.txt","r")
-		answer = answerCheck.readline().strip()
-		answerCheck.close()
+		answer = getAnswer()
 
+		# check if the player used a lifeline
+		if answer[:8] == 'Lifeline':
+			lifelinesRemaining -= 4
+			if answer[9:] == "50 / 50":
+				master = tkinter.Tk()
+				master.withdraw()
+				messagebox.showinfo("50 / 50", "Two answer choices will be eliminated.")
+				question = MultipleChoice(question.questiontext, question.correctAnswer, question.answers[:2])
+
+			elif answer[9:] == "New Question":
+				master = tkinter.Tk()
+				master.withdraw()
+				messagebox.showinfo("New Question", "You will be given a new question at no penalty.")
+				question = random.choice(list_of_questions)
+
+			else:
+				master = tkinter.Tk()
+				master.withdraw()
+				messagebox.showinfo("Double Dip!", "You have two chances to select the correct answer.")
+				master.deiconify()
+				currentGUI = GUI(master, question, payout[correctAnswers], lifelinesRemaining)
+				master.mainloop()
+				answer = getAnswer()
+				if answer != 'A':
+						master = tkinter.Tk()
+						master.withdraw()
+						messagebox.showinfo('Double Dip!', 'One more chance remaining!')
+				else:
+					correctAnswers += 1
+					continue
+		
+			master.deiconify()
+			currentGUI = GUI(master, question, payout[correctAnswers], lifelinesRemaining)
+			master.mainloop()
+			lifelinesRemaining += 3
+
+		# check if the answer is correct
+		answer = getAnswer()
 		if isinstance(question, MultipleChoice):
 			if answer != 'A':
 				break
@@ -117,16 +159,18 @@ def main():
 			if answer.upper() != str(question.correctAnswer).upper():
 				break
 
-	# check to see if the player won or not
+		correctAnswers += 1
+
+	# check to see if the player won or not and customize popup message
 	print ()
-	if i == 14:
+	if correctAnswers == 14:
 		messageTitle = "Congratulations!"
 		messageInfo = "You is kind, you is smart, you is a millionaire!"
 
 	else:
 		messageTitle = "Incorrect Answer"
 		messageInfo = "You done. Game over. Who gonna be a millionaire? not you." + \
-		"\n\nThe correct answer was: " + str(question.correctAnswer) + "\nFinal Score: $" + payout[i]
+		"\n\nThe correct answer was: " + str(question.correctAnswer) + "\nFinal Score: $" + payout[correctAnswers]
 
 	master = tkinter.Tk()
 	master.withdraw()
