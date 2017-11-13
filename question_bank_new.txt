@@ -1,4 +1,4 @@
-﻿["MultipleChoice", "Who is the star of the movie 'Casablanca?'", "Humphrey Bogart", "Errol Flynn", "Clark Gable", "Cary Grant"]
+["MultipleChoice", "Who is the star of the movie 'Casablanca?'", "Humphrey Bogart", "Errol Flynn", "Clark Gable", "Cary Grant"]
 ["MultipleChoice", "People are supposed to drive on the left-hand side of the road in which country?", "England", "France", "Italy", "Germany"]
 ["MultipleChoice", "What is the colored part of the eye called?", "Iris", "Pupil", "Retina", "Cochlea"]
 ["MultipleChoice", "What is the most popular month for weddings in America?", "August", "January", "May", "November"]
@@ -71,6 +71,6 @@
 ["TRUE/False", "Vincent van Gogh sold only one painting during his lifetime", True, False]
 ["TRUE/False", "Denali, also known as Mount McKinley, is the highest mountain in the United States", True, False]
 ["TRUE/False", "World War II is the war the U.S. had the most casualties", False, True]
-["TRUE/False", "It takes about 8 seconds for the Sun’s rays to reach Earth", False, True]
+["TRUE/False", "It takes about 8 seconds for the Sun�s rays to reach Earth", False, True]
 ["TRUE/False", "The Sahara desert is smaller than Mexico", False, True]
 ["TRUE/False", "Earth is bigger than Mars", True, False]
