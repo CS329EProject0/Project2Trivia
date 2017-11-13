@@ -1,14 +1,17 @@
 import random
 import unittest
+import tkinter
+from tkinter import messagebox
 
 class MultipleChoice:
-	def __init__(self, question, correctAnswer, allAnswers):
-		self.question = question
+	def __init__(self, questiontext, correctAnswer, allAnswers):
+		self.questiontext = questiontext
 		self.correctAnswer = correctAnswer
 		self.answers = allAnswers
+		self.qtype = "Multiple Choice"
 
 	def __str__(self):
-		result = self.question + "\n"
+		result = self.questiontext + "\n"
 		random.shuffle(self.answers)
 		for i in range(len(self.answers)):
 			choice = chr(ord('A') + i)
@@ -17,21 +20,23 @@ class MultipleChoice:
 		return result
 
 class TrueFalse:
-	def __init__(self, question, correctAnswer):
-		self.question = question
+	def __init__(self, questiontext, correctAnswer):
+		self.questiontext = questiontext
 		self.correctAnswer = correctAnswer
 		self.answers = [True, False]
+		self.qtype = "True / False"
 
 	def __str__(self):
-		return self.question + ". (True/False)\n"
+		return self.questiontext + ". (True/False)\n"
 
 class FillInTheBlank:
-	def __init__(self, question, correctAnswer):
-		self.question = question
+	def __init__(self, questiontext, correctAnswer):
+		self.questiontext = questiontext
 		self.correctAnswer = correctAnswer
+		self.qtype = "Fill in the Blank"
 
 	def __str__(self):
-		return self.question + ". (Free Response)\n"
+		return self.questiontext + ". (Free Response)\n"
 
 def makeQuestionBank():
 	list_of_questions = []
@@ -63,22 +68,24 @@ def main():
 	# makes question bank
 	list_of_questions = makeQuestionBank()
 
-	# trivia show
-	user_score = 0
+	# import the GUI class
+	from GUIreader import GUI
 
-	A = "Aa"
-	B = "Bb"
-	C = "Cc"
-	D = "Dd"
-
-	payout = [100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000]
+	# trivia show variables
+	payout = ['100', '200', '300', '500', '1,000', '2,000', '4,000', '8,000', '16,000', '32,000', '64,000', '125,000', '250,000', '500,000', '1,000,000']
 	lifelines = ["50:50", "Double Dip", "Change Question"]
-	for i in range(15):
-		question = random.choice(list_of_questions)
-		print(question)
-		list_of_questions.remove(question)
-		answer = input("If you would like to use a lifeline, enter \"lifeline\"\nIf you would like to answer, enter answer: ")
+	lifelinesRemaining = 3
 
+	for i in range (15):
+		question = random.choice(list_of_questions)
+		master = tkinter.Tk()
+		currentQuestion = GUI(master, question, payout[i], lifelinesRemaining)
+		master.mainloop()
+
+		list_of_questions.remove(question)
+
+		'''
+		answer = input("If you would like to use a lifeline, enter \"lifeline\"\nIf you would like to answer, enter answer: ")
 		# if the user wants to use a lifeine
 		while answer == "lifeline":
 			printLifelines(lifelines)
@@ -96,34 +103,35 @@ def main():
 			else:
 				# cancel
 				answer = input("If you would like to use a lifeline, enter \"lifeline\"\nIf you would like to answer, enter answer: ")
+		'''
 
+		# open the temporary Answer file to check if the answer is correct
+		answerCheck = open("tempAnswer.txt","r")
+		answer = answerCheck.readline().strip()
+		answerCheck.close()
 
 		if isinstance(question, MultipleChoice):
-			# booleans checking if answer is correct
-			A_Correct = answer in A and question.correctAnswer == question.answers[0]
-			B_Correct = answer in B and question.correctAnswer == question.answers[1]
-			C_Correct = answer in C and question.correctAnswer == question.answers[2]
-			D_Correct = answer in D and question.correctAnswer == question.answers[3]
-
-			if A_Correct or B_Correct or C_Correct or D_Correct:
-				# add score
-				user_score = payout[i]
-			else:
-				print("You done. Game over. Who gonna be a millionaire? not you.")
+			if answer != 'A':
 				break
 		else:
-			if answer.upper() == str(question.correctAnswer).upper():
-				user_score = payout[i]
-			else:
-				print("\nDishonor on you, yo family, dishonor on yo cow, get outta my face.")
+			if answer.upper() != str(question.correctAnswer).upper():
 				break
 
-		print()
-		print("\tCurrent score: $" + str(user_score))
-		print()
+	# check to see if the player won or not
+	print ()
+	if i == 14:
+		messageTitle = "Congratulations!"
+		messageInfo = "You is kind, you is smart, you is a millionaire!"
 
-	if user_score == 1000000:
-		print("Congrats! You is kind, you is smart, you is a millionaire.")
+	else:
+		messageTitle = "Incorrect Answer"
+		messageInfo = "You done. Game over. Who gonna be a millionaire? not you." + \
+		"\n\nThe correct answer was: " + str(question.correctAnswer) + "\nFinal Score: $" + payout[i]
+
+	master = tkinter.Tk()
+	master.withdraw()
+	messagebox.showinfo(messageTitle, messageInfo)
+	master.destroy()
 
 		
 main()
@@ -139,7 +147,7 @@ class TestSuite (unittest.TestCase):
 
 	# simply test the creation of a question object, we will be testing the MC type question
 	def testQuestionCreation (self):
-		self.assertEqual(self.testMC.question, self.question)
+		self.assertEqual(self.testMC.questiontext, self.question)
 		self.assertEqual(self.testMC.correctAnswer, self.correctAnswer)
 		self.assertEqual(self.testMC.answers, self.allAnswers)
 
