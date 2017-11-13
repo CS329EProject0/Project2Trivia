@@ -17,9 +17,12 @@ class GUI():
 		self.linePos = 4
 
 		# color design for GUI
-		backgroundColor = "old lace"
-		textColor = "#662E1C"
-		buttonColor = "bisque"
+		backgroundColor = "#1E656D"
+		textColor = "ivory"
+		buttonColor = "#D0E1F9"
+
+		# add color to the program
+		self.master.configure(bg = backgroundColor)
 		
 		# Code to add widgets 
 		# creating question label

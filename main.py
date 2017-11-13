@@ -90,27 +90,6 @@ def main():
 
 		list_of_questions.remove(question)
 
-		'''
-		answer = input("If you would like to use a lifeline, enter \"lifeline\"\nIf you would like to answer, enter answer: ")
-		# if the user wants to use a lifeine
-		while answer == "lifeline":
-			printLifelines(lifelines)
-			lifeline_answer = input("Which lifeline would you like to use? 'q' to cancel: ")
-			print()
-			if lifeline_answer in A:
-				# use 50:50 lifeline
-				pass
-			elif lifeline_answer in B:
-				# use Double Dip lifeline
-				pass
-			elif lifeline_answer in C:
-				# use Change Question lifeline
-				pass
-			else:
-				# cancel
-				answer = input("If you would like to use a lifeline, enter \"lifeline\"\nIf you would like to answer, enter answer: ")
-		'''
-
 		# open the temporary Answer file to check if the answer is correct
 		answer = getAnswer()
 
