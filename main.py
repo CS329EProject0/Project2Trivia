@@ -40,7 +40,7 @@ class FillInTheBlank:
 
 def makeQuestionBank():
 	list_of_questions = []
-	infile = open("question_bank_new.txt", "r")
+	infile = open("question_bank.txt", "r")
 	for line in infile:
 		line = eval(line)
 		if line[0] == "MultipleChoice":
