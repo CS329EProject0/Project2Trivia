@@ -1,6 +1,6 @@
 def main():
 	infile = open("question_bank.txt", "r")
-	outfile = open('transformedBank', 'w')
+	outfile = open('transformedBank.txt', 'w')
 	for line in infile:
 		line = eval(line)
 		for i in range(len(line)):
